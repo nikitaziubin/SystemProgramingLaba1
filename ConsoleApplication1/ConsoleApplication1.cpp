@@ -4,13 +4,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 
 using namespace std;
 
 int main()
 {
-    
     string line;
     int b;
     string lines[10000];
@@ -20,13 +20,12 @@ int main()
     
     if (a)
     {
-        //in >> line;
         getline(in, line);
-        cout << line << endl;
+        //cout << line << endl;
     }
     in.close();
 
-    string lineX;
+    string lineX = "";
     int j = 0;
     int i = 0;
     int lineLength = line.length();
@@ -36,42 +35,95 @@ int main()
         if (int(line[i]) >= 65 and line[i] <= 90 || line[i] >= 97 and line[i] <= 122)
         {
             lineX += line[i];
-
         }
         else
         {
-            lines[j] = lineX;
-            lineX = "";
-            j++;
+            if (lineX != "")
+            {
+                lines[j] = lineX;
+                lineX = "";
+                j++;
+            }
         }
         i++;
     } while (i <= lineLength);
 
-    //for (int i = 0; i <= lineLength; i++)
-    //{
+    int size = 0;
+    while (lines[size] != "")
+    {
+        cout << lines[size] << " " ;
+        size++;
+    }
+    cout << endl;
 
-    //    int a = int(line[i]);
-    //    if (int(line[i]) >= 65 and line[i] <= 90 || line[i] >= 97 and line[i] <= 122)
-    //    {
-    //        lineX += line[i];
-    //    }
-    //    else
-    //    {
-    //        lines[j] = lineX;
-    //        lineX = "";
-    //        j++;
-    //    }
-    //}
-
+    string linesWithOut[10000];
     i = 0;
+    int k = 0;
+    //int size = lines->size();
+
     while (lines[i] != "")
     {
-        cout << lines[i] << " " << endl;
+        for (int j = i+1; j < size+1; j++)
+        {
+            if (j  == size)
+            {
+                linesWithOut[k] = lines[i];
+                k++;
+                break;
+            }
+
+            if (lines[i] != lines[j])
+            {
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
         i++;
     }
 
+    size = 0;
+    while (linesWithOut[size] != "")
+    {
+        cout << linesWithOut[size] << " ";
+        size++;
+    }
+    cout << endl;
+    string linesFinal[1000];
 
+    int smallest = 0;
+    int iFinal = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (linesWithOut[i].length() >= smallest)
+        {
+            if (linesWithOut[i].length() == smallest)
+            {
+                linesFinal[iFinal] = linesWithOut[i];
+                iFinal++;
+            }
+            else
+            {
+                fill(linesFinal, linesFinal + size, "");
+                iFinal = 0;
+                linesFinal[iFinal] = linesWithOut[i];
+                iFinal++; 
+                smallest = linesWithOut[i].length();
+            }
 
+        }
+
+    }
+
+    size = 0;
+    while (linesFinal[size] != "")
+    {
+        cout << linesFinal[size] << " ";
+        size++;
+    }
+    cout << endl;
 
 }
 
