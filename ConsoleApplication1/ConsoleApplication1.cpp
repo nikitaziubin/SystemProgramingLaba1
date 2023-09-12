@@ -117,6 +117,7 @@ int main()
     }
 
     size = 0;
+    cout << "Task 1" << endl;
     while (linesFinal[size] != "")
     {
         cout << linesFinal[size] << " ";
@@ -128,7 +129,8 @@ int main()
     int oneLineLength = linesFinal[0].length();
     int beigestM = 0;
     int midM = -1;
-    for (int i = 0; i < size; i++)
+    int task14I = 0;
+    for (int i = 0; i < size-1; i++)
     {
         for (int k = 0; k < oneLineLength; k++)
         {
@@ -143,18 +145,29 @@ int main()
         {
             if (beigestM == midM)
             {
-                lines14[i][0] = linesFinal[i];
-                lines14[i][1] = linesFinal[i + 1];
+                lines14[task14I][0] = linesFinal[i];
+                lines14[task14I][1] = linesFinal[i + 1];
             }
             else
             {
-                /*midM = beigestM;
+                midM = beigestM;
                 beigestM = 0;
-                fill(linesFinal, linesFinal + size, "");
-                lines14[i][0] = linesFinal[i];
-                lines14[i][1] = linesFinal[i + 1];*/
+                fill(std::begin(lines14[0]), std::end(lines14[size]), "");
+                task14I = 0;
+                lines14[task14I][0] = linesFinal[i];
+                lines14[task14I][1] = linesFinal[i + 1];
+                task14I++;
             }
         }
     }
+    size = 0;
+    cout << "Task 14" << endl;
+    while (lines14[size][0] != "")
+    {
+        cout << lines14[size][0] << " ";
+        cout << lines14[size][1] << " " << endl;
+        size++;
+    }
+    cout << endl;
 }
 
